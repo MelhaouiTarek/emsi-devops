@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#this script uses ~/.ssh/holberton as a private key to connect to the remote server ( 34.74.160.142) with the user ubuntu
+ssh -i ~/.ssh/holberton ubuntu@34.74.160.142
