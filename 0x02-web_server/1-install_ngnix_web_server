@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+#this script installs ngnix using apt get then changes the port to 80 and runs a page 
