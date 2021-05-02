@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#this script should install ngnix on the server and redirect another page.
+Page=" rewrite  ^/(.*)$ https://www.youtube.com/watch?v=dQw4w9WgXcQ permanent;\n"
+apt-get -y update
+apt-get install -y  nginx
+sed -i '0,/listen .*/s//listen 80 default_server;/' /etc/nginx/sites-available/default
+echo Holberton School > /var/www/html/index.nginx-debian.html
+sed -i "37i $Page" /etc/nginx/sites-available/default
+service nginx restart
+
