@@ -7,7 +7,7 @@ import requests
 
 def number_of_subscribers(subreddit):
     """
-        function returns number of subscribers or 0 if invalid subreddit
+     function returns number of subscribers or 0 if invalid subreddit
     """
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
     #user agent
