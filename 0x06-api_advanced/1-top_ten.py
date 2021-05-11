@@ -14,7 +14,7 @@ def top_ten(subreddit):
     # user agent
     headers = {'User-Agent': 'Test'}
     response = requests.get(url, headers=headers)
-    if not response.json()['data']['children']:
+    if not response.json().get('data', {}).get('children', []):
         print(None)
     else:
         for hot in response.json()['data']['children']:
