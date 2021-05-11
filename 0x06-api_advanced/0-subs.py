@@ -14,7 +14,7 @@ def number_of_subscribers(subreddit):
     headers = {'User-Agent': 'Test'}
 
     response = requests.get(url, headers=headers).json()
-    subs = response.get('data',{}).get('subscribers',{})
+    subs = response.get('data',{}).get('subscribers')
     
     if not subs:
         return 0
