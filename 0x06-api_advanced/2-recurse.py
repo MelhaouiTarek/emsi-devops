@@ -1,31 +1,35 @@
 #!/usr/bin/python3
 """
-Getting the top 10 hot posts in a subreddit
+Return the list of all hot posts of a subreddit
 """
 import requests
 
 
-def recurse(subreddit,hot_list=[],new="end" ):
+def recurse(subreddit, hot_list=[], after="done"):
     """
-        function returns the all hot posts of a subreddit recursively
+        thi is a recursive function
+        returns all hot posts
     """
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    # setting user agent
-    headers = {'User-Agent': 'Test'}
+    # seeting user agent
+    headers = requests.utils.default_headers()
+    headers.update({'User-Agent': 'My User Agent 1.0'})
 
-    if new != "end":
-        url = url + "?after={}".format(new)
-    
+    # alter url with the new value of after
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    if after != "done":
+        url = url + "?after={}".format(after)
     response = requests.get(url, headers=headers, allow_redirects=False)
-    titles = response.json()['data']['children']
-    if not titles:
+
+    # adding the newly added top posts
+    sub_titles = response.json().get('data', {}).get('children', [])
+    if not sub_titles:
         return None
     else:
-        for post in titles:
-            hot_list.append(post['data']['title'])
-    #adds next 25 posts 
-    new=response.json().get('data').get('after')
-    if not new:
+        for i in sub_titles:
+            hot_list.append(i.get('data').get('title'))
+
+    # new value after
+    after = response.json().get('data').get('after')
+    if not after:
         return hot_list
-    return (recurse(subreddit,hot_list,new))
-        
+    return (recurse(subreddit, hot_list, after))
